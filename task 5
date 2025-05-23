@@ -1,0 +1,16 @@
+class User
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+
+class Admin : User
+{
+    public string Role => "Admin";
+}
+
+class RegularUser : User
+{
+    public string Role => "User";
+}
