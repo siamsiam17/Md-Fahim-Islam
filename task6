@@ -1,0 +1,36 @@
+[
+  {
+    "Id": 1,
+    "Name": "Alice",
+    "Email": "alice@example.com",
+    "Type": "Admin"
+  },
+  {
+    "Id": 2,
+    "Name": "Bob",
+    "Email": "bob@example.com",
+    "Type": "User"
+  }
+]
+
+class DeserializeTypedUsers
+{
+    public static void DeserializeWithTypes()
+    {
+        string json = File.ReadAllText("typed_users.json");
+        var rawUsers = JsonSerializer.Deserialize<List<JsonElement>>(json);
+
+        foreach (var userElement in rawUsers)
+        {
+            string type = userElement.GetProperty("Type").GetString();
+
+            User user;
+            if (type == "Admin")
+                user = JsonSerializer.Deserialize<Admin>(userElement.GetRawText());
+            else
+                user = JsonSerializer.Deserialize<RegularUser>(userElement.GetRawText());
+
+            Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Email: {user.Email}, Role: {type}");
+        }
+    }
+}
