@@ -1,0 +1,13 @@
+class DeserializeJson
+{
+    public static void DeserializeAndPrint()
+    {
+        string json = File.ReadAllText("users.json");
+        var users = JsonSerializer.Deserialize<List<User>>(json);
+
+        foreach (var user in users)
+        {
+            Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Email: {user.Email}");
+        }
+    }
+}
