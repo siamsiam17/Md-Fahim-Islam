@@ -1,0 +1,20 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+
+class AddJsonEntry
+{
+    public static void AddNewEntry()
+    {
+        var users = new List<User>
+        {
+            new User { Id = 1, Name = "Alice", Email = "alice@example.com" },
+            new User { Id = 2, Name = "Bob", Email = "bob@example.com" }
+        };
+
+        users.Add(new User { Id = 3, Name = "Charlie", Email = "charlie@example.com" });
+
+        string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText("users.json", json);
+    }
+}
